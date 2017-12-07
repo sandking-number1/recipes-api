@@ -10,12 +10,12 @@ describe('Test the test setup', () => {
 });
 
 describe('index.html', () => {
-  it('should say Reusable JavaScript Template', (done) => {
+  it('should have div that says Users', (done) => {
     const index = fs.readFileSync('./src/index.html', 'utf-8');
 
     jsdom.env(index, function(err, window) {
       const div = window.document.getElementsByTagName('div')[0];
-      expect(div.innerHTML).to.equal('Reusable JavaScript Template');
+      expect(div.innerHTML).to.equal('Users');
       done();
       window.close();
     });

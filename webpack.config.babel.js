@@ -26,7 +26,7 @@ const productionPlugin = new webpack.DefinePlugin({
 
 const base = {
   entry: [
-    'webpack-hot-middleware/client?reload=true',
+    // 'webpack-hot-middleware/client?reload=true',
     PATHS.app
   ],
   target: 'web',
@@ -75,8 +75,7 @@ const developmentConfig = {
 
 var productionConfig = {
   devtool: 'cheap-module-source-map',
-  plugins: [HTMLWebpackPluginConfig,
-    productionPlugin,
+  plugins: [productionPlugin,
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.UglifyJsPlugin()
   ]
