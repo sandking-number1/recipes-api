@@ -15,7 +15,7 @@ describe('index.html', () => {
 
     jsdom.env(index, function(err, window) {
       const div = window.document.getElementsByTagName('div')[0];
-      expect(div.innerHTML).to.equal('Users');
+      expect(div.innerHTML).to.equal('Recipes');
       done();
       window.close();
     });
