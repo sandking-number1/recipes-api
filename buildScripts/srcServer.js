@@ -3,14 +3,28 @@ import express from'express';
 import open from'open';
 import webpack from 'webpack';
 import config from '../webpack.config.babel';
+import mongoose from 'mongoose';
+import bodyParser from 'body-parser';
+import recipeRouter from '../routes/recipeRoutes';
+import Recipe from '../models/recipeModel';
 
+const recipeRouteCall = recipeRouter(Recipe);
 /* eslint-disable no-console */
-
 const port = process.env.PORT || 3002;
 const app = express();
 const compiler = webpack(config);
 
-const recipeRouter = express.Router();
+const mongooseUri = `mongodb://ethriel3695:KnNB7iuQKmzZWtcw@cluster0-shard-00-00-h9eli.mongodb.net:27017,cluster0-shard-00-01-h9eli.mongodb.net:27017,cluster0-shard-00-02-h9eli.mongodb.net:27017/Recipes?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin`;
+
+mongoose.connect(mongooseUri, {
+  useMongoClient: true
+}, function(err) {
+  if (err) {
+    console.log(err);
+  } else {
+    console.log('MongoDb Connected');
+  }
+});
 
 app.use(require('webpack-dev-middleware')(compiler, {
   noInfo: true,
@@ -19,16 +33,10 @@ app.use(require('webpack-dev-middleware')(compiler, {
 
 app.use(require('webpack-hot-middleware')(compiler));
 
-recipeRouter.route('/recipes')
-  .get(function(req, res) {
-    res.json([
-      {'id': 1, 'firstName': 'Bob', 'lastName': 'Smith', 'email': 'bob@gmail.com'},
-      {'id': 2, 'firstName': 'Tammy', 'lastName': 'Norton', 'email': 'tnorton@yahoo.com'},
-      {'id': 3, 'firstName': 'Tina', 'lastName': 'Lee', 'email': 'tina@hotmail.com'}
-    ]);
-  });
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
-app.use('/api', recipeRouter);
+app.use('/api/recipes', recipeRouteCall);
 
 app.get('/', function (req, res) {
   res.send('This API Template');
