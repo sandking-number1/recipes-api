@@ -1,53 +1,65 @@
 import express from 'express';
+import recipeController from '../controllers/recipeController';
 
 const routes = (Recipe) => {
   const recipeRouter = express.Router();
+  const recipeControllerCall = recipeController(Recipe);
 
   recipeRouter.route('/')
-  .post(function(req, res) {
-    const recipe = new Recipe(req.body);
+  .post(recipeControllerCall.post)
+  .get(recipeControllerCall.get);
 
-    recipe.save();
-    res.status(201).send(recipe);
-
-  })
-  .get(function(req, res) {
-
-    const query = {};
-
-    if(req.query.genre) {
-      query.genre = req.query.genre;
-    }
-    Recipe.find(query, function(err, recipes) {
+  recipeRouter.use('/recipeId', function(req, res, next){
+    Recipe.findById(req.params.recipeId, function(err, recipe) {
       if(err) {
         res.status(500).send(err);
+      } else if (recipe) {
+        req.recipe = recipe;
+        next();
       } else {
-        res.json(recipes);
+        res.status(404).send('No recipe found');
       }
     });
   });
 
 recipeRouter.route('/:recipeId')
 .get(function(req, res) {
-    Recipe.findById(req.params.recipeId, function(err, recipe) {
+    res.json(req.recipe);
+  })
+  .put(function(req, res) {
+    req.recipe.name = req.body.name;
+    req.recipe.ingredients = req.body.ingredients;
+    req.recipe.instructions = req.body.instructions;
+    req.recipe.category = req.body.category;
+    req.recipe.save(function(err) {
       if(err) {
         res.status(500).send(err);
       } else {
-        res.json(recipe);
+        res.json(req.recipe);
       }
     });
   })
-  .put(function(req, res) {
-    Recipe.findById(req.params.recipeId, function(err, recipe) {
+  .patch(function(req, res) {
+    if (req.body._id) {
+      delete req.body_id;
+    }
+    for (let parameter in req.body) {
+      req.recipe[parameter] = req.body[parameter];
+    }
+    req.recipe.save(function(err) {
       if(err) {
         res.status(500).send(err);
       } else {
-        recipe.name = req.body.name;
-        recipe.ingredients = req.body.ingredients;
-        recipe.instructions = req.body.instructions;
-        recipe.category = req.body.category;
-        recipe.save();
-        res.json(recipe);
+        res.json(req.recipe);
+      }
+    });
+  })
+  .delete(function(req, res) {
+    req.recipe.remove(function(err){
+      if(err) {
+        res.status(500).send(err);
+      } else {
+        res.status(204).send('Recipe Removed');
       }
     });
   });
