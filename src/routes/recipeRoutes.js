@@ -24,7 +24,13 @@ const routes = (Recipe) => {
 
 recipeRouter.route('/:recipeId')
 .get(function(req, res) {
-    res.json(req.recipe);
+
+    const returnRecipe = req.recipe.toJSON();
+
+    returnRecipe.links = {};
+    const newLink = `http://${req.headers.host}/api/books/?genre=${returnRecipe.genre}`
+    rerturnRecipe.links.FilterByThisGenre = newLink.replace(' ', '%20');
+    res.json(returnRecipe);
   })
   .put(function(req, res) {
     req.recipe.name = req.body.name;
