@@ -29,7 +29,7 @@ recipeRouter.route('/:recipeId')
 
     returnRecipe.links = {};
     const newLink = `http://${req.headers.host}/api/books/?genre=${returnRecipe.genre}`
-    rerturnRecipe.links.FilterByThisGenre = newLink.replace(' ', '%20');
+    returnRecipe.links.FilterByThisGenre = newLink.replace(' ', '%20');
     res.json(returnRecipe);
   })
   .put(function(req, res) {
