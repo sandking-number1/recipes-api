@@ -1,3 +1,3 @@
-# JavaScript Development Environment
+# Recipes API
 
-This is a template for easily starting JavaScript projects.
+This is an API for Recipes and accessing the MongoDB Recipes database
