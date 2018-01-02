@@ -1,7 +1,4 @@
 import axios from 'axios';
-import getBaseUrl from './baseUrl';
-
-const baseUrl = getBaseUrl();
 
 export function getUsers () {
   return get('users');
@@ -12,13 +9,13 @@ export function deleteUser(id) {
 }
 
 function get(url) {
-  return axios.get(baseUrl + url)
+  return axios.get(url)
     .then(response => onSuccess(response))
     .catch(error => onError(error));
 }
 
 function del(url) {
-  const request = new Request(baseUrl + url, {
+  const request = new Request(url, {
     method: 'DELETE'
   });
 

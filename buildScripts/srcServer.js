@@ -1,6 +1,6 @@
-import express from'express';
-// import path from'path';
-import open from'open';
+import express from 'express';
+// import path from 'path';
+import open from 'open';
 import webpack from 'webpack';
 import config from '../webpack.config.babel';
 import mongoose from 'mongoose';
@@ -15,7 +15,7 @@ const app = express();
 const compiler = webpack(config);
 let mongooseUri = '';
 
-console.log(process.env.ENV);
+// console.log(process.env.ENV);
 
 if(process.env.ENV === undefined) {
   mongooseUri = `mongodb://ethriel3695:KnNB7iuQKmzZWtcw@cluster0-shard-00-00-h9eli.mongodb.net:27017,cluster0-shard-00-01-h9eli.mongodb.net:27017,cluster0-shard-00-02-h9eli.mongodb.net:27017/Recipes?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin`;
@@ -46,7 +46,7 @@ app.use(bodyParser.json());
 app.use('/api/recipes', recipeRouteCall);
 
 app.get('/', function (req, res) {
-  res.send('This API Template');
+  res.send('Welcome to the Recipes API!');
 });
 
 app.listen(port, function(err) {
@@ -57,4 +57,4 @@ app.listen(port, function(err) {
   }
 });
 
-module.exports = app;
+export default app;

@@ -10,7 +10,7 @@ describe('Test the test setup', () => {
 });
 
 describe('index.html', () => {
-  it('should have div that says Users', (done) => {
+  it('should have div that says Recipes', (done) => {
     const index = fs.readFileSync('./src/index.html', 'utf-8');
 
     jsdom.env(index, function(err, window) {

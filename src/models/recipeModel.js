@@ -10,9 +10,9 @@ const recipeModel = new mongoose.Schema({
   instructions: [{
     type: String
   }],
-  category: {
+  tags: [{
     type: String
-  }
+  }]
 });
 
 const recipe = mongoose.model('Recipe', recipeModel);
