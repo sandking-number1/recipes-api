@@ -24,9 +24,11 @@ const routes = (Recipe) => {
 
 recipeRouter.route('/:_id')
 .get(function(req, res) {
-  console.log(recipeControllerCall);
-  console.log(req.recipe);
-    const returnRecipe = req.recipe.toJSON();
+  // console.log(res);
+  // console.log(req);
+  // console.log(recipeControllerCall);
+  // console.log(req.recipe);
+    const returnRecipe = res.recipe.toJSON();
 
     returnRecipe.links = {};
     let tagsList = returnRecipe.tags.map(key => {
