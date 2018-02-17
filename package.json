@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "The recipes api for use in my recipe application",
   "main": "index.js",
+  "engines": {
+    "node": "8.9.1",
+    "npm": "5.5.1"
+  },
   "scripts": {
     "prestart": "babel-node buildScripts/startMessage.js",
     "start": "nodemon --exec npm-run-all --parallel security-check open:src lint:watch test:watch",

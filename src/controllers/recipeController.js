@@ -25,7 +25,6 @@ const recipeController = (Recipe) => {
       } else {
         let returnRecipes = [];
         recipes.forEach(function(element) {
-          console.log(element);
           const newRecipe = element.toJSON();
           newRecipe.links = {};
           newRecipe.links.self = `http://${req.headers.host}/api/recipes/${newRecipe._id}`;

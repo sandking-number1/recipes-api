@@ -9,11 +9,13 @@ const routes = (Recipe) => {
   .post(recipeControllerCall.post)
   .get(recipeControllerCall.get);
 
-  recipeRouter.use('/_id', function(req, res, next){
-    Recipe.findById(req.params.recipeId, function(err, recipe) {
+  recipeRouter.use('/:_id', function(req, res, next){
+    console.log(req.params._id);
+    Recipe.findById(req.params._id, function(err, recipe) {
       if(err) {
         res.status(500).send(err);
       } else if (recipe) {
+        console.log(recipe);
         req.recipe = recipe;
         next();
       } else {
@@ -28,14 +30,14 @@ recipeRouter.route('/:_id')
   // console.log(req);
   // console.log(recipeControllerCall);
   // console.log(req.recipe);
-    const returnRecipe = res.recipe.toJSON();
+  const returnRecipe = req.recipe.toJSON();
 
     returnRecipe.links = {};
     let tagsList = returnRecipe.tags.map(key => {
       return encodeURIComponent(key);
     }).join(',');
     const newLink = `http://${req.headers.host}/api/recipes/?tags=${tagsList}`;
-    console.log(newLink);
+    // console.log(newLink);
     returnRecipe.links.FilterByTags = newLink.replace(' ', '%20');
     res.json(returnRecipe);
   })
