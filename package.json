@@ -9,7 +9,7 @@
   },
   "scripts": {
     "prestart": "babel-node buildScripts/startMessage.js",
-    "start": "babel-node buildScripts/distServer.js",
+    "start": "babel-node buildScripts/srcServer.js",
     "devServ": "nodemon --exec npm-run-all --parallel security-check open:src lint:watch test:watch",
     "open:dist": "babel-node buildScripts/distServer.js",
     "open:src": "babel-node buildScripts/srcServer.js",
