@@ -51,7 +51,10 @@
     "npm-run-all": "^4.1.2",
     "nsp": "^3.2.1",
     "open": "^0.0.5",
-    "webpack": "^3.11.0"
+    "webpack": "^3.11.0",
+    "webpack-dev-middleware": "^2.0.5",
+    "webpack-hot-middleware": "^2.19.1",
+    "webpack-md5-hash": "0.0.6"
   },
   "devDependencies": {
     "chalk": "^2.3.1",
@@ -75,10 +78,7 @@
     "rimraf": "^2.6.2",
     "sinon": "^4.3.0",
     "style-loader": "^0.20.2",
-    "supertest": "^3.0.0",
-    "webpack-dev-middleware": "^2.0.5",
-    "webpack-hot-middleware": "^2.19.1",
-    "webpack-md5-hash": "0.0.6"
+    "supertest": "^3.0.0"
   },
   "bugs": {
     "url": "https://github.com/ethriel3695/recipes-api/issues"
