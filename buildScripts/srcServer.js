@@ -7,12 +7,16 @@ import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import recipeRouter from '../src/routes/recipeRoutes';
 import Recipe from '../src/models/recipeModel';
+import passport from 'passport';
+import Google from 'passport-google-oauth20';
+import keys from '../config/keys';
 
 const recipeRouteCall = recipeRouter(Recipe);
 /* eslint-disable no-console */
 const port = process.env.PORT || 3030;
 const app = express();
 const compiler = webpack(config);
+const GoogleStrategy = Google.Strategy;
 let mongooseUri = '';
 
 // console.log(process.env.ENV);
@@ -33,6 +37,15 @@ mongoose.connect(mongooseUri, {
   }
 });
 
+passport.use(new GoogleStrategy({
+  clientID: keys.googleClientID,
+  clientSecret: keys.googleClientSecret,
+  callbackURL: '/auth/google/callback'
+  }, (accessToken) => {
+    console.log(accessToken);
+  })
+);
+
 app.use(require('webpack-dev-middleware')(compiler, {
   noInfo: true,
   publicPath: config.output.publicPath
@@ -48,6 +61,12 @@ app.use('/api/recipes', recipeRouteCall);
 app.get('/', function (req, res) {
   res.send('Welcome to the Recipes API!');
 });
+
+app.get('/auth/google', 
+  passport.authenticate('google', {
+    scope: ['profile', 'email']
+  })
+);
 
 app.listen(port, function(err) {
   if (err) {
