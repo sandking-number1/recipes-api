@@ -10,12 +10,10 @@ const routes = (Recipe) => {
   .get(recipeControllerCall.get);
 
   recipeRouter.use('/:_id', function(req, res, next){
-    console.log(req.params._id);
     Recipe.findById(req.params._id, function(err, recipe) {
       if(err) {
         res.status(500).send(err);
       } else if (recipe) {
-        console.log(recipe);
         req.recipe = recipe;
         next();
       } else {

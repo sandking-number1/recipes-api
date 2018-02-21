@@ -10,7 +10,7 @@
   "scripts": {
     "prestart": "babel-node buildScripts/startMessage.js",
     "start": "babel-node buildScripts/srcServer.js",
-    "devServ": "nodemon --exec npm-run-all --parallel security-check open:src lint:watch test:watch",
+    "devServ": "nodemon --exec npm-run-all --parallel open:src lint:watch test:watch",
     "open:dist": "babel-node buildScripts/distServer.js",
     "open:src": "babel-node buildScripts/srcServer.js",
     "lint": "esw webpack.config.babel.*, src, buildScripts --color",
