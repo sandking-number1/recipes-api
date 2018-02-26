@@ -6,11 +6,15 @@ import config from '../webpack.config.babel';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import recipeRouter from '../src/routes/recipeRoutes';
-import Recipe from '../src/models/recipeModel';
+import userRouter from '../src/routes/userRoutes';
+import recipe from '../src/models/recipeModel';
+import userModel from '../src/models/userModel';
 require('../src/services/passport.js');
 import authRoutes from '../src/routes/authRoutes';
+import keys from '../config/keys';
 
-const recipeRouteCall = recipeRouter(Recipe);
+const recipeRouteCall = recipeRouter(recipe);
+const userRouteCall = userRouter(userModel);
 /* eslint-disable no-console */
 const port = process.env.PORT || 3030;
 const app = express();
@@ -22,9 +26,9 @@ authRoutes(app);
 // console.log(process.env.ENV);
 
 if(process.env.ENV === undefined) {
-  mongooseUri = `mongodb://ethriel3695:KnNB7iuQKmzZWtcw@cluster0-shard-00-00-h9eli.mongodb.net:27017,cluster0-shard-00-01-h9eli.mongodb.net:27017,cluster0-shard-00-02-h9eli.mongodb.net:27017/Recipes?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin`;
+  mongooseUri = keys.mongoURI;
 } else {
-  mongooseUri = `mongodb://ethriel3695:KnNB7iuQKmzZWtcw@cluster0-shard-00-00-h9eli.mongodb.net:27017,cluster0-shard-00-01-h9eli.mongodb.net:27017,cluster0-shard-00-02-h9eli.mongodb.net:27017/Recipes?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin`;
+  mongooseUri = keys.mongoURI;
 }
 
 mongoose.connect(mongooseUri, {
@@ -47,6 +51,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use('/api/recipes', recipeRouteCall);
+app.use('/api/users', userRouteCall);
 
 // app.get('/', function (req, res) {
 //   res.send('Welcome to the Recipes API!');
