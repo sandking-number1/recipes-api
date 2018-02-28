@@ -6,18 +6,29 @@ import config from '../webpack.config.babel';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import recipeRouter from '../src/routes/recipeRoutes';
-import userRouter from '../src/routes/userRoutes';
 import recipe from '../src/models/recipeModel';
-import userModel from '../src/models/userModel';
-require('../src/services/passport.js');
+import passport from 'passport';
 import authRoutes from '../src/routes/authRoutes';
+require('../src/models/userModel');
+require('../src/services/passport.js');
 import keys from '../config/keys';
+import cookieSession from 'cookie-session';
 
 const recipeRouteCall = recipeRouter(recipe);
-const userRouteCall = userRouter(userModel);
 /* eslint-disable no-console */
 const port = process.env.PORT || 3030;
 const app = express();
+
+app.use(
+  cookieSession({
+    maxAge: 30 * 24 * 60 * 60 * 1000,
+    keys: [keys.cookieKey]
+  })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
+
 const compiler = webpack(config);
 let mongooseUri = '';
 
@@ -51,7 +62,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use('/api/recipes', recipeRouteCall);
-app.use('/api/users', userRouteCall);
 
 // app.get('/', function (req, res) {
 //   res.send('Welcome to the Recipes API!');
