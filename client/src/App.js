@@ -13,7 +13,12 @@ class App extends Component {
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
-        <a href='/auth/google'>Sign In With Google</a>
+        <div>
+          <a href='/auth/google'>Sign In With Google</a>
+        </div>
+        <div>
+          <a href='/api/recipes'>View my Recipes</a>
+          </div>  
       </div>
     );
   }

@@ -5,6 +5,9 @@
   "proxy": {
     "/auth/google": {
       "target": "http://localhost:3030"
+    },
+    "/api/recipes": {
+      "target": "http://localhost:3030"
     }
   },
   "dependencies": {
