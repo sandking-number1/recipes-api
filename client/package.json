@@ -4,13 +4,18 @@
   "private": true,
   "proxy": {
     "/auth/google": {
-      "target": "http://localhost:3030"
+      "target": "http://[::1]:3030"
     },
     "/api/recipes": {
-      "target": "http://localhost:3030"
+      "target": "http://[::1]:3030"
+    },
+    "/api/current_user": {
+      "target": "http://[::1]:3030"
     }
   },
   "dependencies": {
+    "axios": "^0.18.0",
+    "materialize-css": "^0.100.2",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.7",
