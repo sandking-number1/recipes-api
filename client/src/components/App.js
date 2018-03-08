@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
-// import { bindActionCreators } from 'redux';
 import * as actions from '../actions/authActions';
 
 import Header from './Header';
-const Dashboard = () => <h2>Dashboard</h2>
-const RecipeNew = () => <h2>RecipeNew</h2>
-const Landing = () => <h2>Landing</h2>
+import Landing from './Landing';
+const Dashboard = () => <h2>Dashboard</h2>;
+const RecipeNew = () => <h2>RecipeNew</h2>;
 
 class App extends Component {
   componentDidMount() {
@@ -26,7 +26,11 @@ class App extends Component {
           </BrowserRouter>
         </div>
     );
-  };
+  }
+}
+
+App.propTypes = {
+  fetchUser: PropTypes.func.isRequired
 };
 
 // function mapDispatchToProps (dispatch) {

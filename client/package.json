@@ -6,16 +6,15 @@
     "/auth/google": {
       "target": "http://[::1]:3030"
     },
-    "/api/recipes": {
-      "target": "http://[::1]:3030"
-    },
-    "/api/current_user": {
-      "target": "http://[::1]:3030"
+    "/api/*": { 
+      "target": "http://[::1]:3030",
+      "logLevel": "debug" 
     }
   },
   "dependencies": {
     "axios": "^0.18.0",
     "materialize-css": "^0.100.2",
+    "prop-types": "^15.6.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.7",

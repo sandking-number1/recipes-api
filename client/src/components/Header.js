@@ -1,26 +1,23 @@
 import React, { Component } from 'react';
+// import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 class Header extends Component {
 
   renderContent() {
-    console.log(this.props.auth);
+    // eslint-disable-next-line
     switch (this.props.auth) {
       case null:
         return;
       case false:
-        return (
-          <li>
-            <a href="/auth/google">{`Login With Google`}</a>
-          </li>
-        );
+        return <li><a href='/auth/google'>{`Login With Google`}</a></li>;
       default:
         return (
           <li>
-            <a>{`Logout`}</a>
+            <a href='/api/logout'>{`Logout`}</a>
           </li>
         );
-
     }
   }
 
@@ -28,11 +25,12 @@ class Header extends Component {
     return (
       <nav>
         <div className='nav-wrapper'>
-          <a
-            className='left brand-logo'
-            href='/'>
+          <Link
+          // eslint-disable-next-line
+            to={this.props.auth ? '/recipes' : '/'}
+            className='left brand-logo'>
             {`Recipe Manager`}
-          </a>
+          </Link>
           <ul className='right'>
             {this.renderContent()}
           </ul>
