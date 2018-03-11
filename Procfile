@@ -1,1 +1,0 @@
-web: node .distServer.js
