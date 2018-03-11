@@ -61,6 +61,14 @@ app.use(require('webpack-hot-middleware')(compiler));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('client/build'));
+
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  });
+}
+
 app.use('/api/recipes', recipeRouteCall);
 
 // app.get('/', function (req, res) {
