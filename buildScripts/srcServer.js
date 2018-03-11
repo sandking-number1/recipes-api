@@ -1,5 +1,5 @@
 import express from 'express';
-import path from 'path';
+import Path from 'path';
 import open from 'open';
 import webpack from 'webpack';
 import config from '../webpack.config.babel';
@@ -61,19 +61,15 @@ app.use(require('webpack-hot-middleware')(compiler));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+app.use('/api/recipes', recipeRouteCall);
+
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
 
-  app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  app.get('/', function (req, res) {
+    res.sendFile(path.join(__dirname, '../client/src/index.html'));
   });
 }
-
-app.use('/api/recipes', recipeRouteCall);
-
-// app.get('/', function (req, res) {
-//   res.send('Welcome to the Recipes API!');
-// });
 
 app.listen(port, function(err) {
   if (err) {
