@@ -14,7 +14,6 @@
     "devServ": "nodemon --exec npm-run-all --parallel open:src lint:watch test:watch",
     "client": "npm run start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client",
     "open:dist": "babel-node buildScripts/distServer.js",
     "open:src": "babel-node buildScripts/srcServer.js",
     "lint": "esw webpack.config.babel.*, src, buildScripts --color",
@@ -62,7 +61,7 @@
     "passport-google-oauth20": "^1.0.0",
     "path-parser": "^3.0.1",
     "style-loader": "^0.20.2",
-    "webpack": "^3.11.0",
+    "webpack": "^4.1.1",
     "webpack-dev-middleware": "^2.0.5",
     "webpack-hot-middleware": "^2.19.1",
     "webpack-md5-hash": "0.0.6"
