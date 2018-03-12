@@ -1,7 +1,6 @@
 import express from 'express';
-import Path from 'path';
+import path from 'path';
 import open from 'open';
-import webpack from 'webpack';
 import config from '../webpack.config.babel';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
@@ -29,7 +28,6 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-const compiler = webpack(config);
 let mongooseUri = '';
 
 authRoutes(app);
@@ -51,13 +49,6 @@ mongoose.connect(mongooseUri, {
   }
 });
 
-app.use(require('webpack-dev-middleware')(compiler, {
-  noInfo: true,
-  publicPath: config.output.publicPath
-}));
-
-app.use(require('webpack-hot-middleware')(compiler));
-
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
@@ -67,14 +58,6 @@ app.use((req,res, next) => {
   res.header("Access-Control-Allow-Origin", "http:localhost:3000");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 });
-
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('client/build'));
-
-  app.get('/', function (req, res) {
-    res.sendFile(path.join(__dirname, '../client/src/index.html'));
-  });
-}
 
 app.listen(port, function(err) {
   if (err) {
