@@ -18,6 +18,11 @@ const recipeRouteCall = recipeRouter(recipe);
 const port = process.env.PORT || 3030;
 const app = express();
 
+app.use((req,res, next) => {
+  res.header("Access-Control-Allow-Origin", "https://arcane-castle-79035.herokuapp.com");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+});
+
 app.use(
   cookieSession({
     maxAge: 30 * 24 * 60 * 60 * 1000,
@@ -53,11 +58,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use('/api/recipes', recipeRouteCall);
-
-app.use((req,res, next) => {
-  res.header("Access-Control-Allow-Origin", "https://arcane-castle-79035.herokuapp.com/");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-});
 
 app.listen(port, function(err) {
   if (err) {
