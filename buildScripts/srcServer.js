@@ -21,13 +21,15 @@ const app = express();
 app.use((req,res, next) => {
   res.header("Access-Control-Allow-Origin", "https://arcane-castle-79035.herokuapp.com");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header("Access-Contorol-Allow-Methods", "GET, POST, OPTIONS");
   next();
 });
 
 app.use(
   cookieSession({
     maxAge: 30 * 24 * 60 * 60 * 1000,
-    keys: [keys.cookieKey]
+    keys: [keys.cookieKey],
+    httpOnly = false
   })
 );
 
