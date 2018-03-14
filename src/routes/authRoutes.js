@@ -21,7 +21,8 @@ const authRoutes = (app) => {
   });
 
   app.get('/api/current_user', (req, res) => {
-    res.send(req.user);
+    // res.setHeader('x-auth-token');
+    return res.status(200).send(JSON.stringify(req.user));
   });
 };
 
