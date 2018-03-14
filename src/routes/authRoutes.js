@@ -12,13 +12,13 @@ const authRoutes = (app) => {
     passport.authenticate('google'),
     (req, res) => {
       // return res.status(200).send(JSON.stringify(req.user));
-      res.redirect('/');
+      res.redirect('https://arcane-castle-79035.herokuapp.com/recipes');
     }
   );
 
   app.get('/api/logout', (req, res) => {
     req.logout();
-    res.redirect('/');
+    res.redirect('https://arcane-castle-79035.herokuapp.com');
   });
 
   app.get('/api/current_user', (req, res) => {
