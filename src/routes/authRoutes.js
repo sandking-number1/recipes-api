@@ -11,7 +11,8 @@ const authRoutes = (app) => {
     '/auth/google/callback',
     passport.authenticate('google'),
     (req, res) => {
-      res.redirect('https://arcane-castle-79035.herokuapp.com/recipes');
+      return res.status(200).send(JSON.stringify(req.user));
+      // res.redirect('https://arcane-castle-79035.herokuapp.com/recipes');
     }
   );
 
