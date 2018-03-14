@@ -21,8 +21,8 @@ const app = express();
 app.use((req,res, next) => {
   res.header('Access-Control-Allow-Origin', 'https://arcane-castle-79035.herokuapp.com');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-  // res.header('Access-Control-Allow-Methods', 'GET, PUT, PATCH, POST, DELETE');
-  // res.header('Access-Control-Allow-Headers', req.header('access-control-request-headers'));
+  res.header('Access-Control-Allow-Methods', 'GET, PUT, PATCH, POST, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', req.header('access-control-request-headers'));
   next();
 });
 
