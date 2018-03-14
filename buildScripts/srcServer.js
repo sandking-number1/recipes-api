@@ -22,7 +22,6 @@ app.use((req,res, next) => {
   res.header('Access-Control-Allow-Origin', 'https://arcane-castle-79035.herokuapp.com');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   res.header('Access-Control-Allow-Methods', 'GET, PUT, PATCH, POST, DELETE, OPTIONS');
-  res.header('Access-Control-Allow-Headers', req.header('access-control-request-headers'));
   next();
 });
 
@@ -62,6 +61,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use('/api/recipes', recipeRouteCall);
+
+app.get('/', function (req, res) {
+  res.send('Recipe Api');
+});
 
 app.listen(port, function(err) {
   if (err) {
