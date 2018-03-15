@@ -23,6 +23,7 @@ const authRoutes = (app) => {
 
   app.get('/api/current_user', (req, res) => {
     // res.setHeader('x-auth-token');
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
     return res.status(200).send(JSON.stringify(req.user));
   });
 };
